@@ -22,7 +22,7 @@ public class Movies {
 
 
     @Column()
-    int realeseYear;
+    int releaseYear;
 
     @Column(length = 50)
     String director;
