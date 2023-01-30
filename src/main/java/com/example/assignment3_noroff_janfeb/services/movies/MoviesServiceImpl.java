@@ -23,7 +23,7 @@ public class MoviesServiceImpl implements MoviesService {
 
     @Override
     public Collection<Movies> findAll() {
-        return null;
+        return moviesRepository.findAll();
     }
 
     @Override
