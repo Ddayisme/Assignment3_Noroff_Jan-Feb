@@ -33,7 +33,12 @@ public class Movies {
     @Column
     String trailer;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany
+    @JoinTable(
+            name = "movies_characters",
+            joinColumns = {@JoinColumn(name = "movies_id")},
+            inverseJoinColumns = {@JoinColumn(name = "character_id")}
+    )
     private Set<Character> characters;
 
     @ManyToOne

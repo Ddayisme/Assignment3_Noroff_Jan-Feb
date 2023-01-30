@@ -26,11 +26,7 @@ public class Character {
     @Column
     private String picture;
 
-    @ManyToMany
-    @JoinTable(
-            name = "movies_character",
-            joinColumns = {@JoinColumn(name = "character_id")},
-            inverseJoinColumns = {@JoinColumn(name = "movies_id")}
-    )
+    @ManyToMany(mappedBy = "characters")
+
     private Set<Movies> movies;
 }
