@@ -1,8 +1,14 @@
 package com.example.assignment3_noroff_janfeb.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
+@Setter
+@Getter
 public class Movies {
 
     @Id
@@ -27,12 +33,11 @@ public class Movies {
     @Column
     String trailer;
 
+    @ManyToMany(mappedBy = "movies")
+    private Set<Character> characters;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "franchise_id")
+    private Franchise franchise;
 
-    public int getId() {
-        return id;
-    }
 }
