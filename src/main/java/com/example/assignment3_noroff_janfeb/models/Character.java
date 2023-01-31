@@ -15,7 +15,7 @@ public class Character {
     private int id;
 
     @Column(length = 60 )
-    private String full_Name;
+    private String full_name;
 
     @Column()
     private String alias;
@@ -27,6 +27,5 @@ public class Character {
     private String picture;
 
     @ManyToMany(mappedBy = "characters")
-
     private Set<Movies> movies;
 }
