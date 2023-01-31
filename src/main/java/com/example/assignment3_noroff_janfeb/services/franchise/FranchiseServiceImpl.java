@@ -22,7 +22,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Collection<Franchise> findAll() {
-        return null;
+        return franchiseRepository.findAll();
     }
 
     @Override
