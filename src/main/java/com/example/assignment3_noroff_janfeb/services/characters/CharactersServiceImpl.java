@@ -27,21 +27,21 @@ public class CharactersServiceImpl implements CharactersService{
 
     @Override
     public Character add(Character entity) {
-        return null;
+        return characterRepository.save(entity);
     }
 
     @Override
     public Character update(Character entity) {
-        return null;
+        return characterRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer integer) {
-
+        characterRepository.deleteById(integer);
     }
 
     @Override
     public boolean exists(Integer integer) {
-        return false;
+        return characterRepository.existsById(integer);
     }
 }

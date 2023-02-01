@@ -65,12 +65,12 @@ public class MoviesController {
                 return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}")
+    /*@GetMapping("{id}")
     public boolean exists(@PathVariable int id){
         Movies movie= moviesService.findById(id);
         if(movie!=null)
             return true;
         return false;
-    }
+    }*/
 
 }
