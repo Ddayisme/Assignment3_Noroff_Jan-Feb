@@ -3,6 +3,7 @@ package com.example.assignment3_noroff_janfeb.mappers;
 import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.character.characterDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.character.characterPostDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -18,6 +19,11 @@ public interface CharacterMapper {
     characterDTO characterToCharacterDTO(Character character);
 
     Collection<characterDTO> characterToCharacterDTO(Collection<Character> characters);
+
+    @Mapping(target = "movies", ignore = true)
+    Character characterDTOToCharacter(characterDTO characterDto);
+
+    Character characterPostDTOToCharacter(characterPostDTO characterPostDto);
 
     @Named(value = "moviesToMoviesId")
     default Set<Integer> map(Set<Movies> values){
