@@ -28,21 +28,21 @@ public class MoviesServiceImpl implements MoviesService {
 
     @Override
     public Movies add(Movies entity) {
-        return null;
+        return moviesRepository.save(entity);
     }
 
     @Override
     public Movies update(Movies entity) {
-        return null;
+        return moviesRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer integer) {
-
+        moviesRepository.deleteById(integer);
     }
 
     @Override
     public boolean exists(Integer integer) {
-        return false;
+        return moviesRepository.existsById(integer);
     }
 }

@@ -2,13 +2,12 @@ package com.example.assignment3_noroff_janfeb.controller;
 
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Movies;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
 import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Collection;
 
 @RestController
@@ -38,6 +37,40 @@ public class MoviesController {
                         moviesService.findAll()
                 )
         );
+    }
+
+    @PostMapping
+    public ResponseEntity add(@RequestBody moviesDTO entity){
+        Movies movie = movieMapper.moviesDTOToMovie(entity);
+        moviesService.add(movie);
+        URI uri = URI.create("api/v1/movies/" +movie.getId());
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@RequestBody moviesDTO entity, @PathVariable int id) {
+
+        if (id != entity.getId())
+            return ResponseEntity.badRequest().build();
+
+        Movies movie = movieMapper.moviesDTOToMovie(entity);
+        moviesService.update(movie);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteById(@PathVariable int id){
+                moviesService.deleteById(id);
+                return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}")
+    public boolean exists(@PathVariable int id){
+        Movies movie= moviesService.findById(id);
+        if(movie!=null)
+            return true;
+        return false;
     }
 
 }
