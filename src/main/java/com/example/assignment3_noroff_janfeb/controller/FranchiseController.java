@@ -58,11 +58,4 @@ public class FranchiseController {
         franchiseService.deleteById(id);
         return  ResponseEntity.noContent().build();
     }
-    /*  @GetMapping("{id}")
-    public boolean exists(@PathVariable int id){
-        Franchise franchise= franchiseService.findById(id);
-        if(movie!=null)
-            return true;
-        return false;
-    }    */
 }

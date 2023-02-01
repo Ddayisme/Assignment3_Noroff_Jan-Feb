@@ -1,6 +1,5 @@
 package com.example.assignment3_noroff_janfeb.mappers;
 
-import ch.qos.logback.core.model.ComponentModel;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.franchise.franchiseDTO;
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface FranchiseMapper {
-
     @Mapping(target = "movies", qualifiedByName = "moviesToMoviesId")
     franchiseDTO franchiseToFranchiseDTO(Franchise franchise);
 

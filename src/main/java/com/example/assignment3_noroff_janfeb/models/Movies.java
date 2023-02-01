@@ -16,23 +16,16 @@ public class Movies {
     private int id;
     @Column(length = 100 , nullable = false)
     String title;
-
     @Column(length = 100)
     String genre;
-
-
-    @Column()
+    @Column
     int releaseYear;
-
     @Column(length = 50)
     String director;
-
     @Column(length=100)
     String picture;
-
     @Column
     String trailer;
-
     @ManyToMany
     @JoinTable(
             name = "movies_characters",

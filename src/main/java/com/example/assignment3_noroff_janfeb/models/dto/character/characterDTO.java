@@ -13,6 +13,5 @@ public class characterDTO {
     private String full_name;
     private String gender;
     private String picture;
-
     private Set<Integer> movies;
 }

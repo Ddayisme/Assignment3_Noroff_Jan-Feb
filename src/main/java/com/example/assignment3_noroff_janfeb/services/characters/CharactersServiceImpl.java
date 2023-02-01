@@ -8,7 +8,6 @@ import java.util.Collection;
 
 @Service
 public class CharactersServiceImpl implements CharactersService{
-
     private final CharacterRepository characterRepository;
 
     public CharactersServiceImpl(CharacterRepository characterRepository) {
@@ -16,8 +15,8 @@ public class CharactersServiceImpl implements CharactersService{
     }
 
     @Override
-    public Character findById(Integer integer) {
-        return characterRepository.findById(integer).get();
+    public Character findById(Integer id) {
+        return characterRepository.findById(id).get();
     }
 
     @Override
@@ -36,12 +35,11 @@ public class CharactersServiceImpl implements CharactersService{
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        characterRepository.deleteById(integer);
+    public void deleteById(Integer id) {
+        characterRepository.deleteById(id);
     }
-
     @Override
-    public boolean exists(Integer integer) {
-        return characterRepository.existsById(integer);
+    public boolean exists(Integer id) {
+        return characterRepository.existsById(id);
     }
 }

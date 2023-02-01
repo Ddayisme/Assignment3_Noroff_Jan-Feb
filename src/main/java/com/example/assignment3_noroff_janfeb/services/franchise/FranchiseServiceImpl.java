@@ -8,7 +8,6 @@ import java.util.Collection;
 
 @Service
 public class FranchiseServiceImpl implements FranchiseService {
-
     private final FranchiseRepository franchiseRepository;
 
     public FranchiseServiceImpl(FranchiseRepository franchiseRepository) {
@@ -16,8 +15,8 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public Franchise findById(Integer integer) {
-        return franchiseRepository.findById(integer).get();
+    public Franchise findById(Integer id) {
+        return franchiseRepository.findById(id).get();
     }
 
     @Override
@@ -36,14 +35,14 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        Franchise franchise = franchiseRepository.findById(integer).get();
+    public void deleteById(Integer id) {
+        Franchise franchise = franchiseRepository.findById(id).get();
         franchise.getMovies().forEach(m -> m.setFranchise(null));
-        franchiseRepository.deleteById(integer);
+        franchiseRepository.deleteById(id);
     }
 
     @Override
-    public boolean exists(Integer integer) {
-        return franchiseRepository.existsById(integer);
+    public boolean exists(Integer id) {
+        return franchiseRepository.existsById(id);
     }
 }

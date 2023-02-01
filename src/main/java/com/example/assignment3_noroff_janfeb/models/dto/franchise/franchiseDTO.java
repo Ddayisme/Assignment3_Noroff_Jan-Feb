@@ -10,8 +10,6 @@ import java.util.Set;
 public class franchiseDTO {
     private int id;
     private String description;
-
     private String name;
-
     private Set<Integer> movies;
 }

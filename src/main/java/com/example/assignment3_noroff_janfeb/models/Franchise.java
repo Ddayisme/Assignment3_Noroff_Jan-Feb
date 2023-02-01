@@ -13,14 +13,10 @@ public class Franchise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(length = 60)
     String name;
-
-    @Column(length = 1000)
+    @Column(length = 200)
     String description;
-
     @OneToMany(mappedBy = "franchise")
     private Set<Movies> movies;
-
 }

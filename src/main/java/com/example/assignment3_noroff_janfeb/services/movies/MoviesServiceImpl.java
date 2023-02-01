@@ -1,7 +1,6 @@
 package com.example.assignment3_noroff_janfeb.services.movies;
 
 import com.example.assignment3_noroff_janfeb.models.Character;
-import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.repositories.CharacterRepository;
 import com.example.assignment3_noroff_janfeb.repositories.MoviesRepository;
@@ -21,8 +20,8 @@ public class MoviesServiceImpl implements MoviesService {
     }
 
     @Override
-    public Movies findById(Integer integer) {
-        return moviesRepository.findById(integer).get();
+    public Movies findById(Integer id) {
+        return moviesRepository.findById(id).get();
     }
 
     @Override
@@ -41,13 +40,13 @@ public class MoviesServiceImpl implements MoviesService {
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        moviesRepository.deleteById(integer);
+    public void deleteById(Integer id) {
+        moviesRepository.deleteById(id);
     }
 
     @Override
-    public boolean exists(Integer integer) {
-        return moviesRepository.existsById(integer);
+    public boolean exists(Integer id) {
+        return moviesRepository.existsById(id);
     }
 
     @Override

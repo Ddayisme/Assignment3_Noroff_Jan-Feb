@@ -10,23 +10,19 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.Setter;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Collection;
 
 @RestController
 @RequestMapping(path = "api/v1/movies")
 public class MoviesController {
-
     private final MoviesService moviesService;
     private final MovieMapper movieMapper;
 
     public MoviesController(MoviesService moviesService, MovieMapper movieMapper) {
-
         this.moviesService = moviesService;
         this.movieMapper = movieMapper;
     }
@@ -39,7 +35,7 @@ public class MoviesController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = moviesDTO.class))
+                            schema = @Schema(implementation = moviesDTO.class))
                     }
             ),
             @ApiResponse(
@@ -49,14 +45,11 @@ public class MoviesController {
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
-    
-
     public ResponseEntity findById(@PathVariable int id){
         return ResponseEntity.ok(
                 movieMapper.moviesToMoviesDTO(
                         moviesService.findById(id)));
     }
-
 
     @GetMapping
     @Operation(summary = "Get all the movies")
@@ -66,17 +59,16 @@ public class MoviesController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema =@Schema (implementation = moviesDTO.class)))
+                            array = @ArraySchema(schema =@Schema (implementation = moviesDTO.class)))
                     }
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema=@Schema(implementation = ProblemDetail.class)))
+                            schema=@Schema(implementation = ProblemDetail.class))
             )
     })
-
     public ResponseEntity findAll() {
         return ResponseEntity.ok(
                 movieMapper.moviesToMoviesDTO(
@@ -102,7 +94,6 @@ public class MoviesController {
     }
 
     @PutMapping("{id}")
-
     @Operation(summary = "Updates a movie")
     @ApiResponses(value = {
             @ApiResponse(
@@ -121,7 +112,6 @@ public class MoviesController {
                     content = @Content
             )
     })
-
     public ResponseEntity update(@RequestBody moviesDTO entity, @PathVariable int id) {
 
         if (id != entity.getId())
@@ -134,7 +124,6 @@ public class MoviesController {
     }
 
     @DeleteMapping("{id}")
-
     @Operation(summary = "Deletes a movie")
     @ApiResponses(value = {
             @ApiResponse(
@@ -153,14 +142,12 @@ public class MoviesController {
                     content = @Content
             )
     })
-
     public ResponseEntity deleteById(@PathVariable int id){
-                moviesService.deleteById(id);
-                return ResponseEntity.noContent().build();
+        moviesService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("{id}/character")
-
     @Operation(summary = "Updates characters in a movie")
     @ApiResponses(value = {
             @ApiResponse(
@@ -184,17 +171,8 @@ public class MoviesController {
                     content = @Content
             )
     })
-
     public ResponseEntity updateCharactersInMovies(@PathVariable int id, @RequestBody int[] characters){
         moviesService.addCharactersToMovie(characters, id);
         return ResponseEntity.noContent().build();
     }
-  /*  @GetMapping("{id}")
-    public boolean exists(@PathVariable int id){
-        Movies movie= moviesService.findById(id);
-        if(movie!=null)
-            return true;
-        return false;
-    }    */
-
 }
