@@ -1,7 +1,7 @@
 package com.example.assignment3_noroff_janfeb.mappers;
 
 
-import com.example.assignment3_noroff_janfeb.models.Franchise;
+import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
 import org.mapstruct.Mapper;
@@ -15,16 +15,17 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
     @Mapping(target = "franchise", source="franchise.id")
+    @Mapping(target = "characters", qualifiedByName = "characterToCharacterId")
     moviesDTO moviesToMoviesDTO(Movies movies);
 
     Collection<moviesDTO> moviesToMoviesDTO(Collection<Movies> movies);
 
-    @Mapping(target="characters", ignore = true)
     @Mapping(target="franchise", ignore = true)
+    @Mapping(target="characters", ignore = true)
     Movies moviesDTOToMovie (moviesDTO moviesDto);
 
-    @Named(value="franchiseToFranchiseId")
-    default Set<Integer> map(Set<Franchise> value){
+    @Named(value = "characterToCharacterId")
+    default Set<Integer> map(Set<Character> value){
         if(value==null)
             return null;
 
