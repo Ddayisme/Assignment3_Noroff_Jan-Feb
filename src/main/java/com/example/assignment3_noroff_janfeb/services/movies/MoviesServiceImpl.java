@@ -1,8 +1,10 @@
 package com.example.assignment3_noroff_janfeb.services.movies;
 
+import com.example.assignment3_noroff_janfeb.models.Character;
+import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.Movies;
+import com.example.assignment3_noroff_janfeb.repositories.CharacterRepository;
 import com.example.assignment3_noroff_janfeb.repositories.MoviesRepository;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -11,9 +13,11 @@ import java.util.Collection;
 public class MoviesServiceImpl implements MoviesService {
 
     private final MoviesRepository moviesRepository;
+    private final CharacterRepository characterRepository;
 
-    public MoviesServiceImpl(MoviesRepository moviesRepository) {
+    public MoviesServiceImpl(MoviesRepository moviesRepository, CharacterRepository characterRepository) {
         this.moviesRepository = moviesRepository;
+        this.characterRepository = characterRepository;
     }
 
     @Override
@@ -44,5 +48,15 @@ public class MoviesServiceImpl implements MoviesService {
     @Override
     public boolean exists(Integer integer) {
         return moviesRepository.existsById(integer);
+    }
+
+    @Override
+    public Movies addCharactersToMovie(int[] characterIds, int movieId){
+        Movies movies = moviesRepository.findById(movieId).get();
+        for(int i = 0; i < characterIds.length; i++){
+            Character character = characterRepository.findById(characterIds[i]).get();
+            movies.getCharacters().add(character);
+        }
+        return moviesRepository.save(movies);
     }
 }

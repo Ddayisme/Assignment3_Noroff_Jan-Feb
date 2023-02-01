@@ -37,12 +37,13 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public void deleteById(Integer integer) {
+        Franchise franchise = franchiseRepository.findById(integer).get();
+        franchise.getMovies().forEach(m -> m.setFranchise(null));
         franchiseRepository.deleteById(integer);
     }
 
     @Override
     public boolean exists(Integer integer) {
-
         return franchiseRepository.existsById(integer);
     }
 }

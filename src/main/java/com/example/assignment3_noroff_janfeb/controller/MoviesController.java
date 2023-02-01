@@ -65,6 +65,11 @@ public class MoviesController {
                 return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("{id}/character")
+    public ResponseEntity updateCharactersInMovies(@PathVariable int id, @RequestBody int[] characters){
+        moviesService.addCharactersToMovie(characters, id);
+        return ResponseEntity.noContent().build();
+    }
   /*  @GetMapping("{id}")
     public boolean exists(@PathVariable int id){
         Movies movie= moviesService.findById(id);
