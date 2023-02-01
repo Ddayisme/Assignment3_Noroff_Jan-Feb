@@ -20,6 +20,9 @@ public interface FranchiseMapper {
 
     Collection<franchiseDTO> franchiseToFranchiseDTO(Collection<Franchise> franchises);
 
+    @Mapping(target = "movies", ignore = true )
+    Franchise franchiseDTOToFranchise(franchiseDTO franchiseDto);
+
     @Named(value = "moviesToMoviesId")
     default Set<Integer> map(Set<Movies> value) {
         if (value == null)
