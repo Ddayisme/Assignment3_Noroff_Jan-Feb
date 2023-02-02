@@ -36,6 +36,7 @@ public class CharactersServiceImpl implements CharactersService{
 
     @Override
     public void deleteById(Integer id) {
+
         characterRepository.deleteById(id);
     }
     @Override

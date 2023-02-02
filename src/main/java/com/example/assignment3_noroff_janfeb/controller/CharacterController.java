@@ -2,6 +2,7 @@ package com.example.assignment3_noroff_janfeb.controller;
 
 import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.models.Character;
+import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterPostDTO;
 import com.example.assignment3_noroff_janfeb.services.characters.CharactersService;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collection;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping(path = "api/v1/character")
@@ -137,6 +140,15 @@ public class CharacterController {
             )
     })
     public ResponseEntity deleteById(@PathVariable int id){
+
+        Character character= charactersService.findById(id);
+        Collection<Movies> movies= new HashSet<>();
+
+        movies.addAll(character.getMovies());
+        for (Movies var: movies) {
+            var.getCharacters().remove(character);
+        }
+
         charactersService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
