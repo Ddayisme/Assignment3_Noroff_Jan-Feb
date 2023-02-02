@@ -1,10 +1,12 @@
 package com.example.assignment3_noroff_janfeb.controller;
 
 import com.example.assignment3_noroff_janfeb.mappers.FranchiseMapper;
+import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.dto.franchise.franchiseDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
 import com.example.assignment3_noroff_janfeb.services.franchise.FranchiseService;
+import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,10 +24,14 @@ import java.net.URI;
 public class FranchiseController {
     private final FranchiseService franchiseService;
     private final FranchiseMapper franchiseMapper;
+    private final MoviesService moviesService;
+    private final MovieMapper movieMapper;
 
-    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper) {
+    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper, MoviesService moviesService, MovieMapper movieMapper) {
         this.franchiseService = franchiseService;
         this.franchiseMapper = franchiseMapper;
+        this.moviesService = moviesService;
+        this.movieMapper = movieMapper;
     }
 
     @GetMapping
@@ -176,5 +182,14 @@ public class FranchiseController {
     public ResponseEntity updateMoviesInFranchise(@PathVariable int id, @RequestBody int[] movies){
         franchiseService.updateMoviesInAFranchise(movies, id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}/allMovies")
+    public ResponseEntity findAllMoviesInAFranchise(@PathVariable int id) {
+        return ResponseEntity.ok(
+                movieMapper.moviesToMoviesDTO(
+                        franchiseService.findAllMoviesInFranchise(id)
+                )
+        );
     }
 }
