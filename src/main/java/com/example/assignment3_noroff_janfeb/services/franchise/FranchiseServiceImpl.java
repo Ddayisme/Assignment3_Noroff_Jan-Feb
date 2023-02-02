@@ -7,6 +7,8 @@ import com.example.assignment3_noroff_janfeb.repositories.MoviesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class FranchiseServiceImpl implements FranchiseService {
@@ -63,9 +65,17 @@ public class FranchiseServiceImpl implements FranchiseService {
         }
         return franchise;
     }
-
     @Override
     public boolean exists(Integer id) {
         return franchiseRepository.existsById(id);
+    }
+
+    @Override
+    public Collection<Movies> findAllMoviesInFranchise(int franchiseId) {
+        Franchise franchise = franchiseRepository.findById(franchiseId).get();
+        Collection<Movies> movies = new HashSet<>();
+
+        movies.addAll(franchise.getMovies());
+        return movies;
     }
 }
