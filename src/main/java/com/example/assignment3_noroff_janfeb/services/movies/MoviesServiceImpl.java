@@ -6,7 +6,9 @@ import com.example.assignment3_noroff_janfeb.repositories.CharacterRepository;
 import com.example.assignment3_noroff_janfeb.repositories.MoviesRepository;
 import org.springframework.stereotype.Service;
 
+import javax.xml.stream.events.Characters;
 import java.util.Collection;
+import java.util.HashSet;
 
 @Service
 public class MoviesServiceImpl implements MoviesService {
@@ -57,5 +59,14 @@ public class MoviesServiceImpl implements MoviesService {
             movies.getCharacters().add(character);
         }
         return moviesRepository.save(movies);
+    }
+
+    @Override
+    public Collection<Character> allCharactersInMovie(int movieId) {
+
+        Movies movie= moviesRepository.findById(movieId).get();
+
+        return new HashSet<>(movie.getCharacters());
+
     }
 }

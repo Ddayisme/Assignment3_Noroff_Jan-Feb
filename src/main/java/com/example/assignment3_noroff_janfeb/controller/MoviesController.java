@@ -1,5 +1,6 @@
 package com.example.assignment3_noroff_janfeb.controller;
 
+import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
@@ -22,9 +23,12 @@ public class MoviesController {
     private final MoviesService moviesService;
     private final MovieMapper movieMapper;
 
-    public MoviesController(MoviesService moviesService, MovieMapper movieMapper) {
+    private final CharacterMapper characterMapper;
+
+    public MoviesController(MoviesService moviesService, MovieMapper movieMapper, CharacterMapper characterMapper) {
         this.moviesService = moviesService;
         this.movieMapper = movieMapper;
+        this.characterMapper = characterMapper;
     }
 
     @GetMapping("{id}")
@@ -174,5 +178,14 @@ public class MoviesController {
     public ResponseEntity updateCharactersInMovies(@PathVariable int id, @RequestBody int[] characters){
         moviesService.addCharactersToMovie(characters, id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}/allCharacters")
+    public ResponseEntity allCharactersInAMovie(@PathVariable int id){
+        return ResponseEntity.ok(
+                characterMapper.characterToCharacterDTO(
+                        moviesService.allCharactersInMovie(id)
+                ));
+
     }
 }
