@@ -48,10 +48,18 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     public Franchise updateMoviesInAFranchise(int[] movieIds, int franchiseId){
         Franchise franchise = franchiseRepository.findById(franchiseId).get();
-        for(int i = 0; i < movieIds.length; i++){
-            Movies movie = moviesRepository.findById(movieIds[i]).get();
-            movie.setFranchise(franchise);
-            moviesRepository.save(movie);
+        if(movieIds[0] == 0){
+            for(Movies movie : franchise.getMovies()){
+                movie.setFranchise(null);
+                moviesRepository.save(movie);
+            }
+        }
+        else{
+            for(int i = 0; i < movieIds.length; i++){
+                Movies movie = moviesRepository.findById(movieIds[i]).get();
+                movie.setFranchise(franchise);
+                moviesRepository.save(movie);
+            }
         }
         return franchise;
     }
