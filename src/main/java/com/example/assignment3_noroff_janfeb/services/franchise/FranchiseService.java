@@ -4,4 +4,5 @@ import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.services.CRUDService;
 
 public interface FranchiseService extends CRUDService<Franchise, Integer> {
+    Franchise updateMoviesInAFranchise(int[] movieIds, int FranchiseId);
 }

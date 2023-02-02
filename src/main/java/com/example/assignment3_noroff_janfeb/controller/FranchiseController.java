@@ -58,4 +58,10 @@ public class FranchiseController {
         franchiseService.deleteById(id);
         return  ResponseEntity.noContent().build();
     }
+
+    @PutMapping("{id}/movies")
+    public ResponseEntity updateMoviesInFranchise(@PathVariable int id, @RequestBody int[] movies){
+        franchiseService.updateMoviesInAFranchise(movies, id);
+        return ResponseEntity.noContent().build();
+    }
 }
