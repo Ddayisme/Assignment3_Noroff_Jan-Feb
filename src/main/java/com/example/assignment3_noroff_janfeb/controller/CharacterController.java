@@ -2,8 +2,8 @@ package com.example.assignment3_noroff_janfeb.controller;
 
 import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.models.Character;
-import com.example.assignment3_noroff_janfeb.models.dto.character.characterDTO;
-import com.example.assignment3_noroff_janfeb.models.dto.character.characterPostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterPostDTO;
 import com.example.assignment3_noroff_janfeb.services.characters.CharactersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -36,7 +36,7 @@ public class CharacterController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = characterDTO.class))
+                                    schema = @Schema(implementation = CharacterDTO.class))
                     }
             ),
             @ApiResponse(
@@ -58,7 +58,7 @@ public class CharacterController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema =@Schema (implementation = characterDTO.class)))
+                                    array = @ArraySchema(schema =@Schema (implementation = CharacterDTO.class)))
                     }
             ),
             @ApiResponse(
@@ -81,7 +81,7 @@ public class CharacterController {
                     content = @Content
             )
     })
-    public ResponseEntity add(@RequestBody characterPostDTO entity){
+    public ResponseEntity add(@RequestBody CharacterPostDTO entity){
         Character character = characterMapper.characterPostDTOToCharacter(entity);
         charactersService.add(character);
         URI uri = URI.create("api/v1/character/" + character.getId());
@@ -107,7 +107,7 @@ public class CharacterController {
                     content = @Content
             )
     })
-    public ResponseEntity update(@RequestBody characterDTO entity, @PathVariable int id){
+    public ResponseEntity update(@RequestBody CharacterDTO entity, @PathVariable int id){
         if(id != entity.getId())
             return ResponseEntity.badRequest().build();
 

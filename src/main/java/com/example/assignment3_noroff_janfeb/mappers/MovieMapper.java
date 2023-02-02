@@ -3,7 +3,7 @@ package com.example.assignment3_noroff_janfeb.mappers;
 
 import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
-import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 public interface MovieMapper {
     @Mapping(target = "franchise", source="franchise.id")
     @Mapping(target = "characters", qualifiedByName = "characterToCharacterId")
-    moviesDTO moviesToMoviesDTO(Movies movies);
+    MoviesDTO moviesToMoviesDTO(Movies movies);
 
-    Collection<moviesDTO> moviesToMoviesDTO(Collection<Movies> movies);
+    Collection<MoviesDTO> moviesToMoviesDTO(Collection<Movies> movies);
 
     @Mapping(target="franchise", ignore = true)
     @Mapping(target="characters", ignore = true)
-    Movies moviesDTOToMovie (moviesDTO moviesDto);
+    Movies moviesDTOToMovie (MoviesDTO moviesDto);
 
     @Named(value = "characterToCharacterId")
     default Set<Integer> map(Set<Character> value){

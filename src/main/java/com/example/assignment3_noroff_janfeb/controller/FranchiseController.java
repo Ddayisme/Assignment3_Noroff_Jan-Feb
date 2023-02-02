@@ -4,8 +4,8 @@ import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.mappers.FranchiseMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
-import com.example.assignment3_noroff_janfeb.models.dto.franchise.franchiseDTO;
-import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchiseDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
 import com.example.assignment3_noroff_janfeb.services.franchise.FranchiseService;
 import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,7 +46,7 @@ public class FranchiseController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema =@Schema(implementation = moviesDTO.class)))
+                                    array = @ArraySchema(schema =@Schema(implementation = MoviesDTO.class)))
                     }
             ),
             @ApiResponse(
@@ -72,7 +72,7 @@ public class FranchiseController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = moviesDTO.class))
+                                    schema = @Schema(implementation = MoviesDTO.class))
                     }
             ),
             @ApiResponse(
@@ -98,7 +98,7 @@ public class FranchiseController {
                     content = @Content
             )
     })
-    ResponseEntity add(@RequestBody franchiseDTO entity){
+    ResponseEntity add(@RequestBody FranchiseDTO entity){
         Franchise franchise = franchiseMapper.franchiseDTOToFranchise(entity);
         franchiseService.add(franchise);
         URI uri = URI.create("api/v1/franchise/" + franchise.getId());
@@ -125,7 +125,7 @@ public class FranchiseController {
             )
     })
 
-    public ResponseEntity update(@RequestBody franchiseDTO entity, @PathVariable int id){
+    public ResponseEntity update(@RequestBody FranchiseDTO entity, @PathVariable int id){
         if(id!= entity.getId())
             return ResponseEntity.badRequest().build();
 

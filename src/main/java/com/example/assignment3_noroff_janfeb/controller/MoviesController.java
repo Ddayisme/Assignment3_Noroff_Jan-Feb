@@ -3,7 +3,7 @@ package com.example.assignment3_noroff_janfeb.controller;
 import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Movies;
-import com.example.assignment3_noroff_janfeb.models.dto.movies.moviesDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
 import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -39,7 +39,7 @@ public class MoviesController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = moviesDTO.class))
+                            schema = @Schema(implementation = MoviesDTO.class))
                     }
             ),
             @ApiResponse(
@@ -63,7 +63,7 @@ public class MoviesController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema =@Schema (implementation = moviesDTO.class)))
+                            array = @ArraySchema(schema =@Schema (implementation = MoviesDTO.class)))
                     }
             ),
             @ApiResponse(
@@ -90,7 +90,7 @@ public class MoviesController {
                     content = @Content
             )
     })
-    public ResponseEntity add(@RequestBody moviesDTO entity){
+    public ResponseEntity add(@RequestBody MoviesDTO entity){
         Movies movie = movieMapper.moviesDTOToMovie(entity);
         moviesService.add(movie);
         URI uri = URI.create("api/v1/movies/" +movie.getId());
@@ -116,7 +116,7 @@ public class MoviesController {
                     content = @Content
             )
     })
-    public ResponseEntity update(@RequestBody moviesDTO entity, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody MoviesDTO entity, @PathVariable int id) {
 
         if (id != entity.getId())
             return ResponseEntity.badRequest().build();

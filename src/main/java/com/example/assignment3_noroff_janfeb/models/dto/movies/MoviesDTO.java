@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class moviesDTO {
+public class MoviesDTO {
     private int id;
     private String director;
     private String genre;

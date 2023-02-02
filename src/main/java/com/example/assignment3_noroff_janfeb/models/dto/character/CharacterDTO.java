@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class characterDTO {
+public class CharacterDTO {
     private int id;
     private String alias;
     private String full_name;

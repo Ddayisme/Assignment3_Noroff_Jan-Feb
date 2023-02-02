@@ -1,6 +1,7 @@
 package com.example.assignment3_noroff_janfeb.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,12 +20,13 @@ public class Movies {
     @Column(length = 100)
     String genre;
     @Column
+    @Min(value = 0)
     int releaseYear;
     @Column(length = 50)
     String director;
     @Column(length=100)
     String picture;
-    @Column
+    @Column(length = 255)
     String trailer;
     @ManyToMany
     @JoinTable(

@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class franchiseDTO {
+public class FranchiseDTO {
     private int id;
     private String description;
     private String name;

@@ -13,7 +13,7 @@ public class Franchise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(length = 60)
+    @Column(length = 60, nullable = false)
     String name;
     @Column(length = 200)
     String description;

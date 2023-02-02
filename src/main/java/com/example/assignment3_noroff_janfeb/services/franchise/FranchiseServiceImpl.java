@@ -80,6 +80,7 @@ public class FranchiseServiceImpl implements FranchiseService {
         return movies;
     }
 
+    @Override
     public Collection<Character> findAllCharactersInFranchise(int franchiseId){
         Franchise franchise=franchiseRepository.findById(franchiseId).get();
         Collection<Movies >movies= new HashSet<>();
