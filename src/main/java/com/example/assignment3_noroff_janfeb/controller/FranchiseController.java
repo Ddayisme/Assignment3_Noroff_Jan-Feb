@@ -1,5 +1,6 @@
 package com.example.assignment3_noroff_janfeb.controller;
 
+import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.mappers.FranchiseMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
@@ -27,11 +28,14 @@ public class FranchiseController {
     private final MoviesService moviesService;
     private final MovieMapper movieMapper;
 
-    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper, MoviesService moviesService, MovieMapper movieMapper) {
+    private final CharacterMapper characterMapper;
+
+    public FranchiseController(FranchiseService franchiseService, FranchiseMapper franchiseMapper, MoviesService moviesService, MovieMapper movieMapper, CharacterMapper characterMapper) {
         this.franchiseService = franchiseService;
         this.franchiseMapper = franchiseMapper;
         this.moviesService = moviesService;
         this.movieMapper = movieMapper;
+        this.characterMapper = characterMapper;
     }
 
     @GetMapping
@@ -185,10 +189,64 @@ public class FranchiseController {
     }
 
     @GetMapping("{id}/allMovies")
+    @Operation(summary = "Get all movies in a franchise")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Success",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Server error",
+                    content = @Content
+            )
+    })
     public ResponseEntity findAllMoviesInAFranchise(@PathVariable int id) {
         return ResponseEntity.ok(
                 movieMapper.moviesToMoviesDTO(
                         franchiseService.findAllMoviesInFranchise(id)
+                )
+        );
+    }
+    @GetMapping("{id}/allcharacters")
+    @Operation(summary = "Get all characters in a franchise")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Success",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Server error",
+                    content = @Content
+            )
+    })
+    public ResponseEntity findAllCharactersInFranchise(@PathVariable int id){
+        return ResponseEntity.ok(
+                characterMapper.characterToCharacterDTO(
+                        franchiseService.findAllCharactersInFranchise(id)
                 )
         );
     }

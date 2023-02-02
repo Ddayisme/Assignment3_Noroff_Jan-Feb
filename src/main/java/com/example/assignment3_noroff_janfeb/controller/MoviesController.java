@@ -180,7 +180,31 @@ public class MoviesController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/allCharacters")
+    @GetMapping("{id}/allcharacters")
+
+    @Operation(summary = "Get all characters in a movie")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Success",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Server error",
+                    content = @Content
+            )
+    })
     public ResponseEntity allCharactersInAMovie(@PathVariable int id){
         return ResponseEntity.ok(
                 characterMapper.characterToCharacterDTO(

@@ -1,5 +1,6 @@
 package com.example.assignment3_noroff_janfeb.services.franchise;
 
+import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.repositories.FranchiseRepository;
@@ -77,5 +78,19 @@ public class FranchiseServiceImpl implements FranchiseService {
 
         movies.addAll(franchise.getMovies());
         return movies;
+    }
+
+    public Collection<Character> findAllCharactersInFranchise(int franchiseId){
+        Franchise franchise=franchiseRepository.findById(franchiseId).get();
+        Collection<Movies >movies= new HashSet<>();
+
+        movies.addAll(franchise.getMovies());
+        Collection<Character> characters = new HashSet<>();
+
+        for (Movies var: movies
+             ) {
+           characters.addAll(var.getCharacters());
+        }
+        return characters;
     }
 }
