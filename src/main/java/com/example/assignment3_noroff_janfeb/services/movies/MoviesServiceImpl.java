@@ -1,5 +1,6 @@
 package com.example.assignment3_noroff_janfeb.services.movies;
 
+import com.example.assignment3_noroff_janfeb.exceptions.MoviesNotFoundException;
 import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.repositories.CharacterRepository;
@@ -35,7 +36,7 @@ public class MoviesServiceImpl implements MoviesService {
      */
     @Override
     public Movies findById(Integer id) {
-        return moviesRepository.findById(id).get();
+        return moviesRepository.findById(id).orElseThrow(() -> new MoviesNotFoundException(id));
     }
 
     /**
@@ -98,7 +99,7 @@ public class MoviesServiceImpl implements MoviesService {
      */
     @Override
     public Movies addCharactersToMovie(int[] characterIds, int movieId){
-        Movies movies = moviesRepository.findById(movieId).get();
+        Movies movies = moviesRepository.findById(movieId).orElseThrow(() -> new MoviesNotFoundException(movieId));
         for(int i = 0; i < characterIds.length; i++){
             Character character = characterRepository.findById(characterIds[i]).get();
             movies.getCharacters().add(character);
@@ -114,7 +115,7 @@ public class MoviesServiceImpl implements MoviesService {
     @Override
     public Collection<Character> allCharactersInMovie(int movieId) {
 
-        Movies movie= moviesRepository.findById(movieId).get();
+        Movies movie= moviesRepository.findById(movieId).orElseThrow(() -> new MoviesNotFoundException(movieId));
 
         return new HashSet<>(movie.getCharacters());
 

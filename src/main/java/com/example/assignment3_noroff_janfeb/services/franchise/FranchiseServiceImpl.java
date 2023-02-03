@@ -1,5 +1,6 @@
 package com.example.assignment3_noroff_janfeb.services.franchise;
 
+import com.example.assignment3_noroff_janfeb.exceptions.FranchiseNotFoundException;
 import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.Movies;
@@ -33,7 +34,7 @@ public class FranchiseServiceImpl implements FranchiseService {
      */
     @Override
     public Franchise findById(Integer id) {
-        return franchiseRepository.findById(id).get();
+        return franchiseRepository.findById(id).orElseThrow(() -> new FranchiseNotFoundException(id));
     }
 
     /**
@@ -72,7 +73,7 @@ public class FranchiseServiceImpl implements FranchiseService {
      */
     @Override
     public void deleteById(Integer id) {
-        Franchise franchise = franchiseRepository.findById(id).get();
+        Franchise franchise = franchiseRepository.findById(id).orElseThrow(() -> new FranchiseNotFoundException(id));
         franchise.getMovies().forEach(m -> m.setFranchise(null));
         franchiseRepository.deleteById(id);
     }
@@ -86,7 +87,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Franchise updateMoviesInAFranchise(int[] movieIds, int franchiseId){
-        Franchise franchise = franchiseRepository.findById(franchiseId).get();
+        Franchise franchise = franchiseRepository.findById(franchiseId).orElseThrow(() -> new FranchiseNotFoundException(franchiseId));
         if(movieIds[0] == 0){
             for(Movies movie : franchise.getMovies()){
                 movie.setFranchise(null);
@@ -120,7 +121,7 @@ public class FranchiseServiceImpl implements FranchiseService {
      */
     @Override
     public Collection<Movies> findAllMoviesInFranchise(int franchiseId) {
-        Franchise franchise = franchiseRepository.findById(franchiseId).get();
+        Franchise franchise = franchiseRepository.findById(franchiseId).orElseThrow(() -> new FranchiseNotFoundException(franchiseId));
         Collection<Movies> movies = new HashSet<>();
 
         movies.addAll(franchise.getMovies());
@@ -135,7 +136,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Collection<Character> findAllCharactersInFranchise(int franchiseId){
-        Franchise franchise=franchiseRepository.findById(franchiseId).get();
+        Franchise franchise=franchiseRepository.findById(franchiseId).orElseThrow(() -> new FranchiseNotFoundException(franchiseId));
         Collection<Movies >movies= new HashSet<>();
 
         movies.addAll(franchise.getMovies());

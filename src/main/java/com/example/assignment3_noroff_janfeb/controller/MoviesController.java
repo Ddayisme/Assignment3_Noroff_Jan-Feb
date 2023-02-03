@@ -118,7 +118,7 @@ public class MoviesController {
     })
     public ResponseEntity update(@RequestBody MoviesDTO entity, @PathVariable int id) {
 
-        if (id != entity.getId())
+        if (id != entity.getId() || !moviesService.exists(id))
             return ResponseEntity.badRequest().build();
 
         Movies movie = movieMapper.moviesDTOToMovie(entity);
@@ -176,6 +176,8 @@ public class MoviesController {
             )
     })
     public ResponseEntity updateCharactersInMovies(@PathVariable int id, @RequestBody int[] characters){
+        if(moviesService.exists(id))
+            return ResponseEntity.badRequest().build();
         moviesService.addCharactersToMovie(characters, id);
         return ResponseEntity.noContent().build();
     }

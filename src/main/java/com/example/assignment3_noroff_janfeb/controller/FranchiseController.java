@@ -126,7 +126,7 @@ public class FranchiseController {
     })
 
     public ResponseEntity update(@RequestBody FranchiseDTO entity, @PathVariable int id){
-        if(id!= entity.getId())
+        if(id!= entity.getId() || !franchiseService.exists(id))
             return ResponseEntity.badRequest().build();
 
         Franchise franchise = franchiseMapper.franchiseDTOToFranchise(entity);
@@ -184,6 +184,8 @@ public class FranchiseController {
             )
     })
     public ResponseEntity updateMoviesInFranchise(@PathVariable int id, @RequestBody int[] movies){
+        if(!franchiseService.exists(id))
+            return ResponseEntity.badRequest().build();
         franchiseService.updateMoviesInAFranchise(movies, id);
         return ResponseEntity.noContent().build();
     }

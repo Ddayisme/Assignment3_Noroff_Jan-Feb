@@ -111,7 +111,7 @@ public class CharacterController {
             )
     })
     public ResponseEntity update(@RequestBody CharacterDTO entity, @PathVariable int id){
-        if(id != entity.getId())
+        if(id != entity.getId() || !charactersService.exists(id))
             return ResponseEntity.badRequest().build();
 
         Character character = characterMapper.characterDTOToCharacter(entity);

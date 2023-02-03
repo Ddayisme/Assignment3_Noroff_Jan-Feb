@@ -1,5 +1,6 @@
 package com.example.assignment3_noroff_janfeb.services.characters;
 
+import com.example.assignment3_noroff_janfeb.exceptions.CharacterNotFoundException;
 import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.repositories.CharacterRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CharactersServiceImpl implements CharactersService{
      */
     @Override
     public Character findById(Integer id) {
-        return characterRepository.findById(id).get();
+        return characterRepository.findById(id).orElseThrow(() -> new CharacterNotFoundException(id));
     }
 
     /**
