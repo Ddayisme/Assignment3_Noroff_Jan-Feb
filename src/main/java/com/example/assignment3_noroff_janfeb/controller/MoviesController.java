@@ -3,6 +3,7 @@ package com.example.assignment3_noroff_janfeb.controller;
 import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Movies;
+import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
 import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -187,24 +188,28 @@ public class MoviesController {
     @Operation(summary = "Get all characters in a movie")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "204",
+                    responseCode = "200",
                     description = "Success",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema=@Schema(implementation = CharacterDTO.class)))
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Server error",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             )
     })
     public ResponseEntity allCharactersInAMovie(@PathVariable int id){

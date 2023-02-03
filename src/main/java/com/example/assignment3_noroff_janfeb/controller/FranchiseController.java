@@ -4,6 +4,7 @@ import com.example.assignment3_noroff_janfeb.mappers.CharacterMapper;
 import com.example.assignment3_noroff_janfeb.mappers.FranchiseMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
+import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchiseDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
 import com.example.assignment3_noroff_janfeb.services.franchise.FranchiseService;
@@ -194,24 +195,28 @@ public class FranchiseController {
     @Operation(summary = "Get all movies in a franchise")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "204",
+                    responseCode = "200",
                     description = "Success",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema=@Schema(implementation = MoviesDTO.class)))
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Server error",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             )
     })
     public ResponseEntity findAllMoviesInAFranchise(@PathVariable int id) {
@@ -225,24 +230,28 @@ public class FranchiseController {
     @Operation(summary = "Get all characters in a franchise")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "204",
+                    responseCode = "200",
                     description = "Success",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema=@Schema(implementation = CharacterDTO.class)))
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Server error",
-                    content = @Content
+                    content = @Content(mediaType = "application/json",
+                            schema=@Schema(implementation = ProblemDetail.class))
             )
     })
     public ResponseEntity findAllCharactersInFranchise(@PathVariable int id){
