@@ -5,7 +5,8 @@ import com.example.assignment3_noroff_janfeb.mappers.FranchiseMapper;
 import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
-import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchiseDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchisePostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchisePutDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
 import com.example.assignment3_noroff_janfeb.services.franchise.FranchiseService;
 import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
@@ -63,8 +64,6 @@ public class FranchiseController {
                         franchiseService.findAll()));
     }
 
-
-
     @GetMapping("{id}")
     @Operation(summary = "Get a single franchise")
     @ApiResponses(value = {
@@ -99,8 +98,8 @@ public class FranchiseController {
                     content = @Content
             )
     })
-    ResponseEntity add(@RequestBody FranchiseDTO entity){
-        Franchise franchise = franchiseMapper.franchiseDTOToFranchise(entity);
+    ResponseEntity add(@RequestBody FranchisePostDTO entity){
+        Franchise franchise = franchiseMapper.franchisePostDTOToFranchise(entity);
         franchiseService.add(franchise);
         URI uri = URI.create("api/v1/franchise/" + franchise.getId());
         return ResponseEntity.created(uri).build();
@@ -125,12 +124,11 @@ public class FranchiseController {
                     content = @Content
             )
     })
-
-    public ResponseEntity update(@RequestBody FranchiseDTO entity, @PathVariable int id){
+    public ResponseEntity update(@RequestBody FranchisePutDTO entity, @PathVariable int id){
         if(id!= entity.getId() || !franchiseService.exists(id))
             return ResponseEntity.badRequest().build();
 
-        Franchise franchise = franchiseMapper.franchiseDTOToFranchise(entity);
+        Franchise franchise = franchiseMapper.franchisePutDTOToFranchise(entity);
         franchiseService.update(franchise);
 
         return ResponseEntity.noContent().build();
@@ -191,7 +189,7 @@ public class FranchiseController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/allMovies")
+    @GetMapping("{id}/movies")
     @Operation(summary = "Get all movies in a franchise")
     @ApiResponses(value = {
             @ApiResponse(
@@ -226,7 +224,7 @@ public class FranchiseController {
                 )
         );
     }
-    @GetMapping("{id}/allcharacters")
+    @GetMapping("{id}/characters")
     @Operation(summary = "Get all characters in a franchise")
     @ApiResponses(value = {
             @ApiResponse(

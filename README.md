@@ -33,6 +33,8 @@ After having started the program, you can either use Postman or other programs t
 
 You can open up Swagger to see all the API calls available and what is required input for them. You can find Swagger at localhost:8080/swagger-ui.html
 
+When creating something you only need to enter a name for franchise and character, or title for movie. To enter the other fields use the Put method. This might be what you talked about, Nick, where you would in front end do nested calls where you only do the minimal requirements for a POST and then flesh it out with a PUT. 
+
 ## API
 
 Check Swagger for the API calls. localhost:8080/swagger-ui.html

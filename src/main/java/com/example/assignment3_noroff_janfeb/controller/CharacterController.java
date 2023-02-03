@@ -5,6 +5,7 @@ import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterPostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterPutDTO;
 import com.example.assignment3_noroff_janfeb.services.characters.CharactersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -110,11 +111,11 @@ public class CharacterController {
                     content = @Content
             )
     })
-    public ResponseEntity update(@RequestBody CharacterDTO entity, @PathVariable int id){
+    public ResponseEntity update(@RequestBody CharacterPutDTO entity, @PathVariable int id){
         if(id != entity.getId() || !charactersService.exists(id))
             return ResponseEntity.badRequest().build();
 
-        Character character = characterMapper.characterDTOToCharacter(entity);
+        Character character = characterMapper.characterPutDTOToCharacter(entity);
         charactersService.update(character);
 
         return ResponseEntity.noContent().build();

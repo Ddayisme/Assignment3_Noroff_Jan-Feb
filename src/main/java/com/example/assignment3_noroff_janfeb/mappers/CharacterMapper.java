@@ -4,6 +4,7 @@ import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterPostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterPutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -24,8 +25,7 @@ public interface CharacterMapper {
 
     Collection<CharacterDTO> characterToCharacterDTO(Collection<Character> characters);
 
-    @Mapping(target = "movies", ignore = true)
-    Character characterDTOToCharacter(CharacterDTO characterDto);
+    Character characterPutDTOToCharacter(CharacterPutDTO characterPutDto);
 
     Character characterPostDTOToCharacter(CharacterPostDTO characterPostDto);
 

@@ -3,6 +3,8 @@ package com.example.assignment3_noroff_janfeb.mappers;
 import com.example.assignment3_noroff_janfeb.models.Franchise;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchiseDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchisePostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.franchise.FranchisePutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -22,8 +24,9 @@ public interface FranchiseMapper {
 
     Collection<FranchiseDTO> franchiseToFranchiseDTO(Collection<Franchise> franchises);
 
-    @Mapping(target = "movies", ignore = true )
-    Franchise franchiseDTOToFranchise(FranchiseDTO franchiseDto);
+    Franchise franchisePutDTOToFranchise(FranchisePutDTO franchisePutDTO);
+
+    Franchise franchisePostDTOToFranchise(FranchisePostDTO franchisePostDTO);
 
     @Named(value = "moviesToMoviesId")
     default Set<Integer> map(Set<Movies> value) {

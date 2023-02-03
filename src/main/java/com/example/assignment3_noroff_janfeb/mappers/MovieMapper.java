@@ -4,6 +4,8 @@ package com.example.assignment3_noroff_janfeb.mappers;
 import com.example.assignment3_noroff_janfeb.models.Character;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesPostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesPutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -24,9 +26,9 @@ public interface MovieMapper {
 
     Collection<MoviesDTO> moviesToMoviesDTO(Collection<Movies> movies);
 
-    @Mapping(target="franchise", ignore = true)
-    @Mapping(target="characters", ignore = true)
-    Movies moviesDTOToMovie (MoviesDTO moviesDto);
+    Movies moviesPutDTOToMovies(MoviesPutDTO moviesPutDTO);
+
+    Movies moviesPostDTOToMovies(MoviesPostDTO moviesPostDTO);
 
     @Named(value = "characterToCharacterId")
     default Set<Integer> map(Set<Character> value){

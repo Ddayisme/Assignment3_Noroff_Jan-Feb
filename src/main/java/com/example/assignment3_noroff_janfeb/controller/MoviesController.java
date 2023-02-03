@@ -5,6 +5,8 @@ import com.example.assignment3_noroff_janfeb.mappers.MovieMapper;
 import com.example.assignment3_noroff_janfeb.models.Movies;
 import com.example.assignment3_noroff_janfeb.models.dto.character.CharacterDTO;
 import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesPostDTO;
+import com.example.assignment3_noroff_janfeb.models.dto.movies.MoviesPutDTO;
 import com.example.assignment3_noroff_janfeb.services.movies.MoviesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -91,8 +93,8 @@ public class MoviesController {
                     content = @Content
             )
     })
-    public ResponseEntity add(@RequestBody MoviesDTO entity){
-        Movies movie = movieMapper.moviesDTOToMovie(entity);
+    public ResponseEntity add(@RequestBody MoviesPostDTO entity){
+        Movies movie = movieMapper.moviesPostDTOToMovies(entity);
         moviesService.add(movie);
         URI uri = URI.create("api/v1/movies/" +movie.getId());
         return ResponseEntity.created(uri).build();
@@ -117,12 +119,12 @@ public class MoviesController {
                     content = @Content
             )
     })
-    public ResponseEntity update(@RequestBody MoviesDTO entity, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody MoviesPutDTO entity, @PathVariable int id) {
 
         if (id != entity.getId() || !moviesService.exists(id))
             return ResponseEntity.badRequest().build();
 
-        Movies movie = movieMapper.moviesDTOToMovie(entity);
+        Movies movie = movieMapper.moviesPutDTOToMovies(entity);
         moviesService.update(movie);
 
         return ResponseEntity.noContent().build();
@@ -177,14 +179,13 @@ public class MoviesController {
             )
     })
     public ResponseEntity updateCharactersInMovies(@PathVariable int id, @RequestBody int[] characters){
-        if(moviesService.exists(id))
+        if(!moviesService.exists(id))
             return ResponseEntity.badRequest().build();
         moviesService.addCharactersToMovie(characters, id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/allcharacters")
-
+    @GetMapping("{id}/characters")
     @Operation(summary = "Get all characters in a movie")
     @ApiResponses(value = {
             @ApiResponse(
