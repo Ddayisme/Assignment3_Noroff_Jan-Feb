@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.Set;
 
+/**
+ * Our franchise data transfer object, which we use to help encapsulates the data from and to the database.
+ */
 @Getter
 @Setter
 public class FranchiseDTO {

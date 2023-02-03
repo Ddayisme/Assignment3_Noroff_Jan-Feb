@@ -6,6 +6,13 @@ import lombok.Setter;
 
 import java.util.Set;
 
+
+/**
+ *  Character model as a character class
+ *
+ * The models give the blueprint for our database, with codefirst.
+ * We have the Character table and its connection to movies table.
+ */
 @Entity
 @Setter
 @Getter

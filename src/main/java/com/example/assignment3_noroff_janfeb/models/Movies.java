@@ -7,6 +7,13 @@ import lombok.Setter;
 
 import java.util.Set;
 
+/**
+ * Movie model as a Movie class
+ *
+ * The models give the blueprint for our database, with codefirst.
+ * We have the Movies table and its connections to two other tables, Franchise and Character.
+ */
+
 @Entity
 @Setter
 @Getter

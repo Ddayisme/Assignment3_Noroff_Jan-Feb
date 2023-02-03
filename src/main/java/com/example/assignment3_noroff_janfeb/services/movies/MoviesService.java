@@ -7,6 +7,7 @@ import com.example.assignment3_noroff_janfeb.services.CRUDService;
 import javax.xml.stream.events.Characters;
 import java.util.Collection;
 
+
 public interface MoviesService extends CRUDService<Movies, Integer> {
     Movies addCharactersToMovie(int[] characterIds, int movieId);
 

@@ -2,6 +2,11 @@ package com.example.assignment3_noroff_janfeb.services;
 
 import java.util.Collection;
 
+/**
+ * Basic Crud interface
+ * @param <T>
+ * @param <ID>
+ */
 public interface CRUDService <T, ID>{
 
     T findById(ID id);

@@ -6,6 +6,12 @@ import lombok.Setter;
 
 import java.util.Set;
 
+/**
+ * Franchise model as a franchise class
+ *
+ * The models give the blueprint for our database, with codefirst.
+ * We have the Franchise table and its connection to movies table.
+ */
 @Entity
 @Setter
 @Getter

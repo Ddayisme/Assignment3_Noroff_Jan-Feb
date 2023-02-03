@@ -12,6 +12,10 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Our movie mapper which helps us map from a movie class to a movieDTO and back.
+ * It also helps with presenting classes as id's instead of a whole object.
+ */
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
     @Mapping(target = "franchise", source="franchise.id")

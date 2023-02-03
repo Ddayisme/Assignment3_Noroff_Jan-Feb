@@ -11,6 +11,10 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Our franchise mapper which helps us map from a franchise class to a franchiseDTO and back.
+ * It also helps with presenting classes as id's instead of a whole object.
+ */
 @Mapper(componentModel = "spring")
 public interface FranchiseMapper {
     @Mapping(target = "movies", qualifiedByName = "moviesToMoviesId")
